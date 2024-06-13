@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUserEmail } from "../redux/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -26,7 +29,7 @@ const Login = () => {
         toast.error(response.error);
       } else {
         setData({});
-        localStorage.setItem("userEmail", email);
+        dispatch(setUserEmail(email));
         toast.success("Login successfull. Welcome!");
         navigate("/");
       }
